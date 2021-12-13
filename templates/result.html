@@ -1,0 +1,59 @@
+{% extends "base_2.html"%}
+{% block content %}
+<center>
+    {% for item in range(0, 21)%}
+    {%if'{}'.format(item) in all_items%}
+    <div class="card" style="width: 20rem;>
+        <a href=" {{all_items.get(
+    '{}'.format(item))['link']}}"><img
+        src="{{all_items.get('{}'.format(item))['image']}}"
+        class="card-img-top"
+        alt="Card image cap"
+        width="250" height="180"></a>
+    <div class="card-body">
+        <form action="/download" target="_blank">
+            <h5 class="card-title" value="{{all_items.get('{}'.format(item))['title']}}">
+                {{all_items.get('{}'.format(item))['title']}}</h5>
+            <a href="{{all_items.get('{}'.format(item))['link']}}" class="btn btn-primary">Read</a>
+            <input type="hidden" value="{{all_items.get('{}'.format(item))['title']}}" name="title_1">
+            <button type="submit" class="btn btn-primary" name="value"
+                    value="{{all_items.get('{}'.format(item))['link']}}">
+                Save
+            </button>
+        </form>
+        {%if session['account']%}
+        {%if "{}".format(all_items.get('{}'.format(item))['title']) in favorite_article%}
+        <form>
+            <button disabled type="button" class="btn btn-warning">Added</button>
+        </form>
+        {%endif%}
+        {%if "{}".format(all_items.get('{}'.format(item))['title']) not in favorite_article%}
+        <form action="/favorite" method="POST">
+            <input type="hidden" name="url" value="{{url}}">
+            <input type="hidden" name="title" value="{{all_items.get('{}'.format(item))['title']}}">
+            <input type="hidden" name="link" value="{{all_items.get('{}'.format(item))['link']}}">
+            <input type="hidden" name="image" value="{{all_items.get('{}'.format(image))['image']}}">
+            <button type="submit" class="btn btn-warning">Favorite</button>
+        </form>
+        {%endif%}
+        {%endif%}
+    </div>
+    <br>
+    {%endif%}
+    {%endfor%}
+</center>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item active">
+            <a class="page-link" href="#">1<span class="sr-only"></span></a>
+        </li>
+        {% for page in range(0, 8)%}
+        {%if'{}'.format(page) in other_pages%}
+        <li class="page-item">
+            <a class="page-link" href="{{other_pages.get('{}'.format(page))}}">{{page}}</a>
+        </li>
+        {%endif%}
+        {%endfor%}
+    </ul>
+</nav>
+{%endblock%}

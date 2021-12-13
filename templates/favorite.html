@@ -1,0 +1,23 @@
+{% extends "base.html"%}
+{% block content %}
+{% for article in user_article %}
+<center>
+    <div class="card">
+        <div class="card-block">
+            <a href="{{article.link}}">
+                <h4 class="card-title">{{article.title}}</h4>
+            </a>
+        </div>
+        <div class="card-block">
+            <a href="{{article.link}}"></a>
+            <br>
+            <form action="/delete" method="post">
+                <input type="hidden" name="link" value="{{article.link}}">
+                <button type="submit" class="btn btn-outline-danger">Delete</button>
+            </form>
+            <br>
+        </div>
+    </div>
+</center>
+{% endfor %}
+{%endblock%}
